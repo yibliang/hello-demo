@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build:client": "vue-cli-service build",
-    "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build"
+    "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build",
+    "build:win": "npm run build:server && mv ./dist/vue-ssr-server-bundle.json ./vue-ssr-server-bundle.json && npm run build && mv ./vue-ssr-server-bundle.json ./dist/vue-ssr-server-bundle.json"
   },
   "dependencies": {
     "core-js": "^3.3.2",
