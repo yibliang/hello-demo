@@ -1,6 +1,7 @@
 const server = require('express')()
 const path = require('path')
 const express = require('express')
+const history = require('connect-history-api-fallback')
 const { createBundleRenderer } = require("vue-server-renderer");
 const bundle = require("./dist/vue-ssr-server-bundle.json");
 const clientManifest = require("./dist/vue-ssr-client-manifest.json");
@@ -11,12 +12,14 @@ const renderer = createBundleRenderer(bundle, {
     clientManifest: clientManifest
 })
 
-server.use('/dist', express.static(path.resolve('/dist')))
-server.use('/static', express.static(path.resolve('/static')))
-server.use('/js', express.static(path.resolve('/js')))
-server.use('/css', express.static(path.resolve('/css')))
-server.use('/img', express.static(path.resolve('/img')))
-server.use(express.static(path.join(__dirname, 'static'))) //设置静态文件夹
+
+server.use(history({
+    htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
+}))
+server.use(express.static(path.join(__dirname, 'dist'))) //设置静态文件夹
+// server.use(express.static(path.join(__dirname, 'dist/css'))) //设置静态文件夹
+// server.use(express.static(path.join(__dirname, 'dist/img'))) //设置静态文件夹
+// server.use(express.static(path.join(__dirname, 'dist/js'))) //设置静态文件夹
 
 
 server.get('/',(req,res)=>{

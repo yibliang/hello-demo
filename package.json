@@ -7,9 +7,11 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build:client": "vue-cli-service build",
-    "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build"
+    "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build",
+    "build:cs": "npm run build:server && mv ./dist/vue-ssr-server-bundle.json ./vue-ssr-server-bundle.json && npm run build && mv ./vue-ssr-server-bundle.json ./dist/vue-ssr-server-bundle.json"
   },
   "dependencies": {
+    "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.3.2",
     "cross-env": "^6.0.3",
     "express": "^4.17.1",
